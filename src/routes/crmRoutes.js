@@ -1,9 +1,17 @@
+import { runInNewContext } from 'vm';
+
 const routes = app => {
   app
     .route('/contact')
-    .get((req, res) => {
-      res.send('GET response to /contact was successfull');
-    })
+    .get(
+      (req, res, next) => {
+        console.log(`${req.method} request from: ${req.originalUrl}`);
+        next();
+      },
+      (req, res, next) => {
+        res.send('GET response to /contact was successfull');
+      },
+    )
     .post((req, res) => {
       res.send('POST response to /contact was successfull');
     });
