@@ -46,3 +46,12 @@ export const updateContact = (req, res) => {
     },
   );
 };
+export const deleteContact = (req, res) => {
+  // new: true tells mongo to return the updated data
+  Contact.findOneAndRemove({ _id: req.params.contactId }, err => {
+    if (err) {
+      res.send(err, contact);
+    }
+    res.json({ message: 'Successfully deleted contact' });
+  });
+};
